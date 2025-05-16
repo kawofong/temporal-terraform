@@ -41,4 +41,26 @@ is not recommended for production usage.
 
 ## Connect to Temporal Cloud
 
-TBD
+1. Identify the Temporal Cloud namespace and account identifier that you would like to connect to.
+
+1. Extract the following values from the output `temporal_cloud_namespaces.yml` file:
+   - Temporal Cloud namespace identifier
+   - Path to private key file
+   - Path to certificate file
+
+1. Open a terminal and change directory to the project root directory.
+
+1. Use the following command to run the [`hello` workflow](../../workflows/hello.py) in
+your Temporal Cloud namespace. Substitute the values of environment variables.
+
+    ```bash
+    export NAMESPACE_FQDN=<namespace-id>.<account-id>
+    export NAMESPACE_CERT_PATH=<path-to-certificate>
+    export NAMESPACE_KEY_PATH=<path-to-private-key>
+
+    uv run workflows/hello.py \
+        --target-host "${NAMESPACE_FQDN}.tmprl.cloud:7233" \
+        --namespace "${NAMESPACE_FQDN}" \
+        --client-cert "${NAMESPACE_CERT_PATH}" \
+        --client-key "${NAMESPACE_KEY_PATH}"
+    ```

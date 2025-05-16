@@ -41,7 +41,7 @@ For each Terraform workspace, the [Temporal `hello` workflow](./workflows/hello.
 would require different arguments to connect to Temporal Cloud. See below for commands
 to run the `hello` workflow:
 
-- [Starter: Connect to Temporal Cloud](./workspaces/starter/README.md)
+- [Starter: Connect to Temporal Cloud](./workspaces/starter/README.md#connect-to-temporal-cloud)
 
 ---
 
