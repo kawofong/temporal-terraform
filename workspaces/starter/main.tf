@@ -1,25 +1,12 @@
-locals {
-  namespaces = {
-    "terraform-managed-namespace-001" = {
-      region         = "aws-us-east-1"
-      retention_days = 14
-    },
-    "terraform-managed-namespace-002" = {
-      region         = "aws-us-east-1"
-      retention_days = 14
-    },
-  }
-}
-
 resource "tls_private_key" "temporal_cloud_private_key" {
-  for_each = local.namespaces
+  for_each = var.namespaces
 
   algorithm = "RSA"
   rsa_bits  = 2048
 }
 
 resource "tls_self_signed_cert" "temporal_cloud_cert" {
-  for_each = local.namespaces
+  for_each = var.namespaces
 
   private_key_pem = tls_private_key.temporal_cloud_private_key[each.key].private_key_pem
 
@@ -40,10 +27,10 @@ resource "tls_self_signed_cert" "temporal_cloud_cert" {
 }
 
 resource "temporalcloud_namespace" "namespace" {
-  for_each = local.namespaces
+  for_each = var.namespaces
 
   name               = each.key
-  regions            = [each.value.region]
+  regions            = each.value.region
   accepted_client_ca = base64encode(tls_self_signed_cert.temporal_cloud_cert[each.key].cert_pem)
   retention_days     = each.value.retention_days
 }
@@ -53,14 +40,14 @@ locals {
 }
 
 resource "local_sensitive_file" "private_key" {
-  for_each = local.namespaces
+  for_each = var.namespaces
 
   content  = tls_private_key.temporal_cloud_private_key[each.key].private_key_pem
   filename = "${local.secrets_directory}/${each.key}.key"
 }
 
 resource "local_sensitive_file" "cert" {
-  for_each = local.namespaces
+  for_each = var.namespaces
 
   content  = tls_self_signed_cert.temporal_cloud_cert[each.key].cert_pem
   filename = "${local.secrets_directory}/${each.key}.pem"
@@ -69,7 +56,7 @@ resource "local_sensitive_file" "cert" {
 resource "local_file" "namespaces_yaml" {
   content = yamlencode({
     namespaces = {
-      for namespace_name, _ in local.namespaces :
+      for namespace_name, _ in var.namespaces :
       namespace_name => {
         private_key_file = abspath(local_sensitive_file.private_key[namespace_name].filename)
         cert_file        = abspath(local_sensitive_file.cert[namespace_name].filename)
