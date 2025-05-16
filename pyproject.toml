@@ -1,0 +1,9 @@
+[project]
+name = "temporal-terraform"
+version = "0.1.0"
+description = "A practical example of using Terraform to configure Temporal Cloud."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "temporalio>=1.11.1",
+]
