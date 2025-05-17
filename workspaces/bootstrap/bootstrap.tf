@@ -1,6 +1,5 @@
 locals {
   services = [
-    "certificatemanager.googleapis.com",
     "secretmanager.googleapis.com",
   ]
 }
