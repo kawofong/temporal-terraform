@@ -38,3 +38,28 @@ This Terraform workspace creates Temporal Cloud using TLS certificates stored in
     ```bash
     terraform apply
     ```
+
+1. Verify the expected output file after the `terraform apply` command succeeds:
+    - `temporal_cloud_namespaces.yml`: a YAML file containing the mapping of Temporal Cloud
+    namespaces to Google Cloud secrets containing corresponding private key and certificate
+
+## Connect to Temporal Cloud
+
+1. Complete the [getting started](#getting-started) steps and
+ensure that `temporal_cloud_namespaces.yml` exist in the `gcp` Terraform workspace.
+
+1. Identify the Temporal Cloud namespace and account identifier that you would like to connect to.
+
+1. Open a terminal and change directory to the project root directory.
+
+1. Use the following command to run the [`hello` workflow](../../workflows/hello.py) in
+your Temporal Cloud namespace. Substitute the values of environment variables.
+
+    ```bash
+    export NAMESPACE_NAME=<namespace-name-without-account-id>
+    export ACCOUNT_ID=<account-id>
+
+    uv run -m workflows.runner --account "${ACCOUNT_ID}" \
+    --namespace "${NAMESPACE_NAME}" \
+    --workspace "gcp"
+    ```
