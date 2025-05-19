@@ -56,8 +56,8 @@ ensure that `temporal_cloud_namespaces.yml` exist in the `gcp` Terraform workspa
 your Temporal Cloud namespace. Substitute the values of environment variables.
 
     ```bash
-    export NAMESPACE_NAME=<namespace-name-without-account-id>
-    export ACCOUNT_ID=<account-id>
+    export NAMESPACE_NAME="<namespace-name-without-account-id>"
+    export ACCOUNT_ID="<account-id>"
 
     uv run -m workflows.runner --account "${ACCOUNT_ID}" \
     --namespace "${NAMESPACE_NAME}" \

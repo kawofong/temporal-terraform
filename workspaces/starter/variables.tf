@@ -4,11 +4,11 @@ variable "namespaces" {
     retention_days = number
   }))
   default = {
-    "terraform-managed-namespace-001" = {
+    "terraform-managed-namespace-starter-001" = {
       region         = ["aws-us-east-1"]
       retention_days = 14
     },
-    "terraform-managed-namespace-002" = {
+    "terraform-managed-namespace-starter-002" = {
       region         = ["aws-us-east-1"]
       retention_days = 14
     },

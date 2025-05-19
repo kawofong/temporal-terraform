@@ -54,13 +54,8 @@ is not recommended for production usage.
 your Temporal Cloud namespace. Substitute the values of environment variables.
 
     ```bash
-    export NAMESPACE_FQDN=<namespace-id>.<account-id>
-    export NAMESPACE_CERT_PATH=<path-to-certificate>
-    export NAMESPACE_KEY_PATH=<path-to-private-key>
+    export NAMESPACE_NAME="<namespace-name-without-account-id>"
+    export ACCOUNT_ID="<account-id>"
 
-    uv run workflows/hello.py \
-        --target-host "${NAMESPACE_FQDN}.tmprl.cloud:7233" \
-        --namespace "${NAMESPACE_FQDN}" \
-        --client-cert "${NAMESPACE_CERT_PATH}" \
-        --client-key "${NAMESPACE_KEY_PATH}"
+    uv run -m workflows.runner --account "${ACCOUNT_ID}" --namespace "${NAMESPACE_NAME}" --workspace "starter"
     ```

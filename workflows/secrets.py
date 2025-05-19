@@ -45,7 +45,11 @@ class TemporalCloudTlsRetriever:
                 self.client_key = key_data.payload.data
 
             case WorkspaceType.STARTER:
-                raise NotImplementedError("Workspace type not supported")
+                # Extract client cert and key local files
+                with open(namespace_config["cert_file"], "rb") as f:
+                    self.client_cert = f.read()
+                with open(namespace_config["private_key_file"], "rb") as f:
+                    self.client_key = f.read()
 
             case _:
                 raise NotImplementedError("Workspace type not supported")
