@@ -34,11 +34,11 @@ For people who would like to learn how to Terraform Temporal Cloud, see:
 1. Generate a plan for the Terraform configuration. Review the plan before proceeding to next steps.
 
     ```bash
-    terraform plan
+    terraform plan -var "project_id=${PROJECT_ID}"
     ```
 
 1. If the plan looks good, apply the Terraform configurations.
 
     ```bash
-    terraform apply
+    terraform apply -var "project_id=${PROJECT_ID}"
     ```

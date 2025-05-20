@@ -27,16 +27,18 @@ This Terraform workspace creates Temporal Cloud using TLS certificates stored in
     terraform init
     ```
 
+1. Update namespace values in [`terraform.tfvars`](./terraform.tfvars).
+
 1. Generate a plan for the Terraform configuration. Review the plan before proceeding to next steps.
 
     ```bash
-    terraform plan
+    terraform plan -var "project_id=${PROJECT_ID}" -var-file="terraform.tfvars"
     ```
 
 1. If the plan looks good, apply the Terraform configurations.
 
     ```bash
-    terraform apply
+    terraform apply -var "project_id=${PROJECT_ID}" -var-file="terraform.tfvars"
     ```
 
 1. Verify the expected output file after the `terraform apply` command succeeds:

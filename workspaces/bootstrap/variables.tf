@@ -9,6 +9,9 @@ variable "region" {
 }
 
 variable "temporal_cloud_namespaces" {
-  type    = list(string)
-  default = ["terraform-managed-namespace-001", "terraform-managed-namespace-002"]
+  type = list(string)
+  default = [
+    "terraform-managed-namespace-001",
+    "terraform-managed-namespace-002",
+  ]
 }
