@@ -65,3 +65,8 @@ your Temporal Cloud namespace. Substitute the values of environment variables.
     --namespace "${NAMESPACE_NAME}" \
     --workspace "gcp"
     ```
+
+## Import existing Temporal namespaces
+
+If you have existing Temporal namespaces which you would like to import into Terraform state,
+see [this](./import.md).

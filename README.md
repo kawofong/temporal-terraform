@@ -24,10 +24,11 @@
     direnv allow
     ```
 
-There is 1 Terraform workspace in this solution.
+There are 2 Terraform workspaces in this solution.
 To get started with running the Terraform workspace, see:
 
 - [Starter: Getting started](./workspaces/starter/README.md)
+- [Google Cloud: Getting started](./workspaces/gcp/README.md)
 
 ## Connect to Temporal Cloud
 
@@ -42,6 +43,7 @@ would require different arguments to connect to Temporal Cloud. See below for co
 to run the `hello` workflow:
 
 - [Starter: Connect to Temporal Cloud](./workspaces/starter/README.md#connect-to-temporal-cloud)
+- [Google Cloud: Connect to Temporal Cloud](./workspaces/gcp/README.md#connect-to-temporal-cloud)
 
 ---
 
