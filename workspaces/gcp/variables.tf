@@ -5,10 +5,11 @@ variable "project_id" {
 
 variable "temporal_cloud_namespaces" {
   type = map(object({
-    region               = list(string)
-    retention_days       = number
-    cert_gcp_secret_name = string
-    key_gcp_secret_name  = string
+    region                   = list(string)
+    retention_days           = number
+    cert_gcp_secret_name     = string
+    key_gcp_secret_name      = string
+    custom_search_attributes = list(map(string))
   }))
   default = {
     "terraform-managed-namespace-001" = {
@@ -16,12 +17,24 @@ variable "temporal_cloud_namespaces" {
       retention_days       = 14
       cert_gcp_secret_name = "temporal-cloud-cert-terraform-managed-namespace-001"
       key_gcp_secret_name  = "temporal-cloud-private-key-terraform-managed-namespace-001"
+      custom_search_attributes = [
+        {
+          name = "owner"
+          type = "Keyword"
+        }
+      ]
     },
     "terraform-managed-namespace-002" = {
       region               = ["aws-us-east-1"]
       retention_days       = 14
       cert_gcp_secret_name = "temporal-cloud-cert-terraform-managed-namespace-002"
       key_gcp_secret_name  = "temporal-cloud-private-key-terraform-managed-namespace-002"
+      custom_search_attributes = [
+        {
+          name = "owner"
+          type = "Keyword"
+        }
+      ]
     },
   }
   validation {
@@ -61,4 +74,9 @@ variable "temporal_cloud_namespaces" {
     ])
     error_message = "Invalid retention_days. Must be between 1 and 90 inclusively"
   }
+}
+
+variable "temporal_cloud_observability_cert_gcp_secret_name" {
+  type    = string
+  default = "temporal-cloud-cert-observability"
 }
