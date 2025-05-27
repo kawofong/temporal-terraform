@@ -1,12 +1,18 @@
 # Terraforming Temporal Cloud
 
+A solution accelerator to manage your Temporal resources in Terraform.
+This solution contains 2 flavors of Temporal Cloud configurations: starter and Google Cloud.
+
+* [Starter](./workspaces/starter/): uses Terraform to create and store mTLS certificates.
+* [Google Cloud](./workspaces/gcp/): uses [Google Cloud Secret Manager](https://cloud.google.com/security/products/secret-manager?hl=en) to store mTLS certificates.
+
 ## Pre-requisites
 
-- [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli#install-terraform)
-  - `Terraform v1.12.0` was used to develop this solution.
-- [direnv](https://direnv.net/docs/installation.html)
-- [Temporal Cloud API key](https://docs.temporal.io/cloud/api-keys)
-- [uv](https://docs.astral.sh/uv/#installation)
+* [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli#install-terraform)
+  * `Terraform v1.12.0` was used to develop this solution.
+* [direnv](https://direnv.net/docs/installation.html)
+* [Temporal Cloud API key](https://docs.temporal.io/cloud/api-keys)
+* [uv](https://docs.astral.sh/uv/#installation)
 
 ## Getting started
 
@@ -42,8 +48,8 @@ For each Terraform workspace, the [Temporal `hello` workflow](./workflows/hello.
 would require different arguments to connect to Temporal Cloud. See below for commands
 to run the `hello` workflow:
 
-- [Starter: Connect to Temporal Cloud](./workspaces/starter/README.md#connect-to-temporal-cloud)
-- [Google Cloud: Connect to Temporal Cloud](./workspaces/gcp/README.md#connect-to-temporal-cloud)
+* [Starter: Connect to Temporal Cloud](./workspaces/starter/README.md#connect-to-temporal-cloud)
+* [Google Cloud: Connect to Temporal Cloud](./workspaces/gcp/README.md#connect-to-temporal-cloud)
 
 ---
 
