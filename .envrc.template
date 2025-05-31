@@ -1,2 +1,9 @@
+# Temporal Cloud
 TEMPORAL_CLOUD_API_KEY=<temporal-cloud-api-key>
 TEMPORAL_CLOUD_ALLOWED_ACCOUNT_ID=<temporal-cloud-account-id>
+
+# Google Cloud
+export GCP_PROJECT_ID=<google-cloud-project-id>
+
+# Azure
+export AZ_SUBSCRIPTION_ID=<azure-subscription-id>
