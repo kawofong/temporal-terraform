@@ -32,20 +32,20 @@ This Terraform workspace creates Temporal Cloud using TLS certificates stored in
 1. Generate a plan for the Terraform configuration. Review the plan before proceeding to next steps.
 
     ```bash
-    terraform plan -var "az_subscription_id=${AZ_SUBSCRIPTION_ID}"
+    terraform plan -var "az_subscription_id=${AZ_SUBSCRIPTION_ID}" -var-file="terraform.tfvars"
     ```
 
 1. If the plan looks good, apply the Terraform configurations.
 
     ```bash
-    terraform apply -var "az_subscription_id=${AZ_SUBSCRIPTION_ID}"
+    terraform apply -var "az_subscription_id=${AZ_SUBSCRIPTION_ID}" -var-file="terraform.tfvars"
     ```
 
 1. Verify the expected output file after the `terraform apply` command succeeds:
     - `temporal_cloud_namespaces.yml`: a YAML file containing the mapping of Temporal Cloud
     namespaces to Azure Key Vault secrets containing corresponding private key and certificate
 
-## Connect to Temporal Cloud (WIP)
+## Connect to Temporal Cloud
 
 1. Complete the [getting started](#getting-started) steps and
 ensure that `temporal_cloud_namespaces.yml` exist in the `azure` Terraform workspace.
@@ -66,7 +66,7 @@ your Temporal Cloud namespace. Substitute the values of environment variables.
     --workspace "azure"
     ```
 
-## Import existing Temporal namespaces (WIP)
+## Import existing Temporal namespaces
 
 If you have existing Temporal namespaces which you would like to import into Terraform state,
 see [this](./import.md).
