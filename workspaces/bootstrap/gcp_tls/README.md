@@ -22,7 +22,7 @@ For people who would like to learn how to Terraform Temporal Cloud, see:
 1. Open a terminal and navigate to the directory where this Terraform workspace is located.
 
     ```bash
-    cd /{path-to-temporal-terraform-github-project}/workspaces/bootstrap
+    cd /{path-to-temporal-terraform-github-project}/workspaces/bootstrap/gcp_tls
     ```
 
 1. Initialize the Terraform workspace.
