@@ -23,16 +23,4 @@ temporal_cloud_namespaces = {
       }
     ]
   },
-  "unmanaged-namespace-001" = {
-    region           = ["aws-us-east-1"]
-    retention_days   = 14
-    cert_secret_name = "temporal-cloud-cert-unmanaged-namespace-001"
-    key_secret_name  = "temporal-cloud-private-key-unmanaged-namespace-001"
-    custom_search_attributes = [
-      {
-        name = "owner"
-        type = "Keyword"
-      }
-    ]
-  },
 }
