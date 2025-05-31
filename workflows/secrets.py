@@ -2,15 +2,26 @@ from enum import StrEnum
 from pathlib import Path
 
 import yaml
+from azure.identity import DefaultAzureCredential
+from azure.keyvault.secrets import SecretClient
 from google.cloud import secretmanager
 
 
 class WorkspaceType(StrEnum):
-    STARTER = "starter"
+    """
+    Workspace type.
+    """
+
+    AZURE = "azure"
     GCP = "gcp"
+    STARTER = "starter"
 
 
 class TemporalCloudTlsRetriever:
+    """
+    Retrieve client cert and client key from secret stores.
+    """
+
     def __init__(self, workspace: WorkspaceType, namespace: str):
         self.namespace = namespace
         self.workspace = workspace
@@ -51,5 +62,21 @@ class TemporalCloudTlsRetriever:
                 with open(namespace_config["private_key_file"], "rb") as f:
                     self.client_key = f.read()
 
+            case WorkspaceType.AZURE:
+                # Extract client cert and key from Azure Key Vault
+                vault_name = namespace_config["az_key_vault_name"]
+                vault_url = f"https://{vault_name}.vault.azure.net/"
+                secret_client = SecretClient(
+                    vault_url=vault_url,
+                    credential=DefaultAzureCredential(),
+                )
+                cert_data = secret_client.get_secret(
+                    namespace_config["az_secret_name_for_cert"]
+                )
+                key_data = secret_client.get_secret(
+                    namespace_config["az_secret_name_for_key"]
+                )
+                self.client_cert = cert_data.value.encode("utf-8")
+                self.client_key = key_data.value.encode("utf-8")
             case _:
                 raise NotImplementedError("Workspace type not supported")

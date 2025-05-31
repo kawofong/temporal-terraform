@@ -5,6 +5,8 @@ description = "A practical example of using Terraform to configure Temporal Clou
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "azure-identity==1.23.0",
+    "azure-keyvault-secrets==4.9.0",
     "google-cloud-secret-manager==2.23.3",
     "pyyaml==6.0.2",
     "temporalio==1.11.1",

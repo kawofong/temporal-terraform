@@ -1,0 +1,48 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Python Debugger: Module",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "workflows.runner",
+            "args": [
+                "--account",
+                "${input:temporalCloudAccountId}",
+                "--namespace",
+                "${input:temporalCloudNamespace}",
+                "--workspace",
+                "${input:terraformWorkspace}"
+            ]
+        }
+    ],
+    "inputs": [
+        {
+            "type": "promptString",
+            "id": "temporalCloudAccountId",
+            "description": "What is your Temporal Cloud account ID?",
+            "default": ""
+        },
+        {
+            "type": "promptString",
+            "id": "temporalCloudNamespace",
+            "description": "What is your Temporal Cloud namespace?",
+            "default": ""
+        },
+        {
+            "type": "pickString",
+            "id": "terraformWorkspace",
+            "description": "What is your Terraform workspace?",
+            "options": [
+                "azure",
+                "gcp",
+                "starter"
+            ],
+            "default": "starter"
+        }
+    ]
+}

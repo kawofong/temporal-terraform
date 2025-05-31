@@ -37,6 +37,7 @@ resource "local_file" "namespaces_yaml" {
     namespaces = {
       for namespace_name, _ in var.temporal_cloud_namespaces :
       namespace_name => {
+        az_key_vault_name       = var.az_key_vault_name
         az_secret_name_for_cert = data.azurerm_key_vault_secret.temporal_certs[namespace_name].name
         az_secret_name_for_key  = data.azurerm_key_vault_secret.temporal_keys[namespace_name].name
       }
