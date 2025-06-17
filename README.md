@@ -1,10 +1,11 @@
 # Terraforming Temporal Cloud
 
 A solution accelerator to manage your Temporal resources in Terraform.
-This solution contains 2 flavors of Temporal Cloud configurations: starter and Google Cloud.
+This solution contains 3 flavors of Temporal Cloud configurations: starter and Google Cloud.
 
 * [Starter](./workspaces/starter/): uses Terraform to create and store mTLS certificates.
 * [Google Cloud](./workspaces/gcp/): uses [Google Cloud Secret Manager](https://cloud.google.com/security/products/secret-manager?hl=en) to store mTLS certificates.
+* [Azure](./workspaces/azure/): uses [Azure Key Vault](https://learn.microsoft.com/en-us/azure/key-vault/general/overview) to store mTLS certificates.
 
 ## Pre-requisites
 
@@ -33,8 +34,9 @@ This solution contains 2 flavors of Temporal Cloud configurations: starter and G
 There are 2 Terraform workspaces in this solution.
 To get started with running the Terraform workspace, see:
 
-- [Starter: Getting started](./workspaces/starter/README.md)
-- [Google Cloud: Getting started](./workspaces/gcp/README.md)
+* [Starter: Getting started](./workspaces/starter/README.md)
+* [Google Cloud: Getting started](./workspaces/gcp/README.md)
+* [Azure: Getting started](./workspaces/azure/README.md)
 
 ## Connect to Temporal Cloud
 
@@ -50,6 +52,7 @@ to run the `hello` workflow:
 
 * [Starter: Connect to Temporal Cloud](./workspaces/starter/README.md#connect-to-temporal-cloud)
 * [Google Cloud: Connect to Temporal Cloud](./workspaces/gcp/README.md#connect-to-temporal-cloud)
+* [Azure: Connect to Temporal Cloud](./workspaces/azure/README.md#connect-to-temporal-cloud)
 
 ---
 
