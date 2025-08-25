@@ -6,7 +6,7 @@ terraform {
     }
     temporalcloud = {
       source  = "temporalio/temporalcloud"
-      version = "=0.7.1"
+      version = "=1.0.0"
     }
     tls = {
       source  = "hashicorp/tls"
