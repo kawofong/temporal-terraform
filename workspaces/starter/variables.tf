@@ -1,16 +1,31 @@
 variable "namespaces" {
   type = map(object({
+    app            = string
+    domain         = string
     region         = list(string)
+    environment    = string
+    owner          = string
+    tier           = string
     retention_days = number
   }))
   default = {
     "terraform-managed-namespace-starter-001" = {
+      app            = "storefront"
+      domain         = "payment"
       region         = ["aws-us-east-1"]
-      retention_days = 14
+      environment    = "dev"
+      owner          = "johndoe"
+      tier           = "t0"
+      retention_days = 30
     },
     "terraform-managed-namespace-starter-002" = {
+      app            = "storefront"
+      domain         = "fulfillment"
       region         = ["aws-us-east-1"]
-      retention_days = 14
+      environment    = "prd"
+      owner          = "alicebob"
+      tier           = "t0"
+      retention_days = 30
     },
   }
   validation {

@@ -35,6 +35,18 @@ resource "temporalcloud_namespace" "namespace" {
   retention_days     = each.value.retention_days
 }
 
+resource "temporalcloud_namespace_tags" "namespace_tags" {
+  for_each = var.namespaces
+
+  namespace_id = temporalcloud_namespace.namespace[each.key].id
+  tags = {
+    "app"         = each.value.app
+    "environment" = each.value.environment
+    "owner"       = each.value.owner
+    "tier"        = each.value.tier
+  }
+}
+
 locals {
   secrets_directory = "${path.module}/.secrets"
 }
