@@ -1,5 +1,5 @@
 locals {
-  // A mapping of Temporal Cloud region names to their short names
+  # A mapping of Temporal Cloud region names to their short names
   region_mapping = {
     "aws-ap-northeast-1" = "apne1",
     "aws-ap-northeast-2" = "apne2",
@@ -17,7 +17,7 @@ locals {
     "gcp-us-central1"    = "usc1",
   }
   namespaces = {
-    // Namespace name format: <app>-<domain>-<region>-<environment>
+    # Namespace name format: <app>-<domain>-<region>-<environment>
     for namespace in var.namespaces : "${namespace.app}-${namespace.domain}-${local.region_mapping[namespace.region[0]]}-${namespace.environment}" => namespace
   }
 }

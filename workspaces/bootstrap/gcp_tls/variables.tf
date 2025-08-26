@@ -11,7 +11,7 @@ variable "gcp_region" {
 variable "temporal_cloud_namespaces" {
   type = list(string)
   default = [
-    "terraform-managed-namespace-001",
-    "terraform-managed-namespace-002",
+    "storefront-fulfillment-usc1-prd",
+    "storefront-payment-usc1-dev",
   ]
 }

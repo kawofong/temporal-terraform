@@ -4,58 +4,55 @@ variable "project_id" {
 }
 
 variable "temporal_cloud_namespaces" {
-  type = map(object({
+  type = list(object({
+    app                      = string
+    domain                   = string
     region                   = list(string)
+    environment              = string
+    owner                    = string
+    tier                     = string
     retention_days           = number
+    custom_search_attributes = list(map(string))
     cert_gcp_secret_name     = string
     key_gcp_secret_name      = string
-    custom_search_attributes = list(map(string))
   }))
-  default = {
-    "terraform-managed-namespace-001" = {
-      region               = ["aws-us-east-1"]
-      retention_days       = 14
-      cert_gcp_secret_name = "temporal-cloud-cert-terraform-managed-namespace-001"
-      key_gcp_secret_name  = "temporal-cloud-private-key-terraform-managed-namespace-001"
+  default = [
+    {
+      app                      = "storefront"
+      domain                   = "payment"
+      region                   = ["gcp-us-central1"]
+      environment              = "dev"
+      owner                    = "johndoe"
+      tier                     = "t0"
+      retention_days           = 30
+      custom_search_attributes = []
+      cert_gcp_secret_name     = "temporal-cloud-cert-storefront-payment-usc1-dev"
+      key_gcp_secret_name      = "temporal-cloud-private-key-storefront-payment-usc1-dev"
+    },
+    {
+      app            = "storefront"
+      domain         = "fulfillment"
+      region         = ["gcp-us-central1"]
+      environment    = "prd"
+      owner          = "alicebob"
+      tier           = "t0"
+      retention_days = 30
       custom_search_attributes = [
         {
           name = "owner"
           type = "Keyword"
         }
       ]
+      cert_gcp_secret_name = "temporal-cloud-cert-storefront-fulfillment-usc1-prd"
+      key_gcp_secret_name  = "temporal-cloud-private-key-storefront-fulfillment-usc1-prd"
     },
-    "terraform-managed-namespace-002" = {
-      region               = ["aws-us-east-1"]
-      retention_days       = 14
-      cert_gcp_secret_name = "temporal-cloud-cert-terraform-managed-namespace-002"
-      key_gcp_secret_name  = "temporal-cloud-private-key-terraform-managed-namespace-002"
-      custom_search_attributes = [
-        {
-          name = "owner"
-          type = "Keyword"
-        }
-      ]
-    },
-  }
+  ]
   validation {
     # The list of valid regions can be found following
     # https://registry.terraform.io/providers/temporalio/temporalcloud/latest/docs/data-sources/regions
     condition = alltrue(flatten([
       for namespace in var.temporal_cloud_namespaces : [
         for region in namespace.region : contains([
-          "aws-ap-northeast-1",
-          "aws-ap-northeast-2",
-          "aws-ap-south-1",
-          "aws-ap-southeast-1",
-          "aws-ap-southeast-2",
-          "aws-ca-central-1",
-          "aws-eu-central-1",
-          "aws-eu-west-1",
-          "aws-eu-west-2",
-          "aws-sa-east-1",
-          "aws-us-east-1",
-          "aws-us-east-2",
-          "aws-us-west-2",
           "gcp-us-central1",
         ], region)
       ]
@@ -74,9 +71,10 @@ variable "temporal_cloud_namespaces" {
     ])
     error_message = "Invalid retention_days. Must be between 1 and 90 inclusively"
   }
-}
-
-variable "temporal_cloud_observability_cert_gcp_secret_name" {
-  type    = string
-  default = "temporal-cloud-cert-observability"
+  validation {
+    condition = alltrue([
+      for namespace in var.temporal_cloud_namespaces : contains(["dev", "stg", "prd"], namespace.environment)
+    ])
+    error_message = "Invalid environment. Must be either dev, stg or prd"
+  }
 }
