@@ -1,5 +1,5 @@
 variable "namespaces" {
-  type = map(object({
+  type = list(object({
     app            = string
     domain         = string
     region         = list(string)
@@ -8,8 +8,8 @@ variable "namespaces" {
     tier           = string
     retention_days = number
   }))
-  default = {
-    "terraform-managed-namespace-starter-001" = {
+  default = [
+    {
       app            = "storefront"
       domain         = "payment"
       region         = ["aws-us-east-1"]
@@ -18,7 +18,7 @@ variable "namespaces" {
       tier           = "t0"
       retention_days = 30
     },
-    "terraform-managed-namespace-starter-002" = {
+    {
       app            = "storefront"
       domain         = "fulfillment"
       region         = ["aws-us-east-1"]
@@ -27,7 +27,7 @@ variable "namespaces" {
       tier           = "t0"
       retention_days = 30
     },
-  }
+  ]
   validation {
     # The list of valid regions can be found following
     # https://registry.terraform.io/providers/temporalio/temporalcloud/latest/docs/data-sources/regions
@@ -64,5 +64,11 @@ variable "namespaces" {
       for namespace in var.namespaces : namespace.retention_days >= 1 && namespace.retention_days <= 90
     ])
     error_message = "Invalid retention_days. Must be between 1 and 90 inclusively"
+  }
+  validation {
+    condition = alltrue([
+      for namespace in var.namespaces : contains(["dev", "stg", "prd"], namespace.environment)
+    ])
+    error_message = "Invalid environment. Must be either dev, stg or prd"
   }
 }
